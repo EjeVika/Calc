@@ -2,6 +2,9 @@ package com.sukhorukov.khudyakova.task2.test;
 
 import junit.framework.TestCase;
 
+import java.io.InputStreamReader;
+import java.io.Reader;
+
 /**
  * Created with IntelliJ IDEA.
  * User: user
@@ -11,4 +14,10 @@ import junit.framework.TestCase;
  */
 public class TestQuadrEquation extends TestCase {
 
+    public void testQEq() throws Exception {
+
+        Reader reader1 = new InputStreamReader(TestQuadrEquation.class.getResourceAsStream("quadrEquationTest.txt"));
+        while (reader1.)
+
+    }
 }

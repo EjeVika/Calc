@@ -39,7 +39,7 @@ public class TestCommandSqrt extends TestCase {
         Command sqrtCmd = new SqrtCommand();
         sqrtCmd.execute(st,"",define);
 
-
-        assertEquals(st.peek(),Math.sqrt(a));
+     //   System.out.println("test");
+        assertEquals(st.peek(),Math.sqrt(a),1.e-9);
     }
 }
