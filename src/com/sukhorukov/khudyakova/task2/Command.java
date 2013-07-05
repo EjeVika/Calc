@@ -1,11 +1,7 @@
 package com.sukhorukov.khudyakova.task2;
 
 /**
- * Created with IntelliJ IDEA.
- * User: ТСД
- * Date: 27.06.13
- * Time: 13:53
- * To change this template use File | Settings | File Templates.
+  default file template
  */
 import java.util.HashMap;
 import java.util.Stack;
@@ -18,5 +14,5 @@ import java.util.Stack;
  * To change this template use File | Settings | File Templates.
  */
 public interface Command {
-    void execute(Stack<Double> v, String userInput, HashMap<String,Double> define);
+    void execute(Stack<Double> st, String userInput, HashMap<String,Double> def);
 }

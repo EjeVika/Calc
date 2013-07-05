@@ -1,0 +1,21 @@
+DEFINE a 1
+DEFINE b 4
+DEFINE c 0
+PUSH b
+PUSH b
+*
+PUSH 4
+PUSH a
+PUSH c
+*
+*
+-
+SQRT
+POP
+PUSH b
+-
+PUSH 2
+PUSH a
+*
+/
+quit

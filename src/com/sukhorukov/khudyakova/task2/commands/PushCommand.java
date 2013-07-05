@@ -6,39 +6,38 @@ import java.util.HashMap;
 import java.util.Stack;
 
 /**
- * Created with IntelliJ IDEA.
- * User: user
- * Date: 26.06.13
- * Time: 21:22
- * To change this template use File | Settings | File Templates.
+
  */
 public class PushCommand implements Command {
 
     @Override
-    public void execute(Stack<Double> v, String userInput, HashMap<String, Double> define) {
+    public void execute(Stack<Double> st, String userInput, HashMap<String, Double> def) {
 
         String[] mas = userInput.split(" ");
+        try{
 
-        double pushValue = 0.0;
-
-        if (!define.isEmpty()){
-            for (Object str: define.keySet()){
-
-                if (str.equals(mas[1])){
-                    pushValue = define.get(str);
-
+            double pushValue = 0.0;
+            boolean flag = false;
+            // check the presence of parameter in def and, if found, define pushValue
+            if (!def.isEmpty()){
+                for (String str: def.keySet()){
+                    if (str.equals(mas[1])){
+                        pushValue = def.get(str);
+                        flag = true;
+                    }
                 }
             }
+           try{
+                if (flag){
+                    st.push(pushValue);
+                }else {
+                    st.push(new Double(mas[1]) );
+                }
+           }catch (NumberFormatException e){
+               System.out.println("The parameter \""+mas[1]+"\" is not defined" );
+           }
+        } catch (ArrayIndexOutOfBoundsException e){
+           System.out.println("Number of arguments of PUSH command is wrong");
         }
-
-        if (pushValue==0.0){
-            String d=mas[1];
-            v.push(new Double(d) );
-        }
-        else {
-
-            v.push(pushValue);
-        }
-
     }
 }

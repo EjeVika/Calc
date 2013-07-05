@@ -8,26 +8,10 @@ import java.util.HashMap;
 import java.util.Stack;
 
 /**
- * Created with IntelliJ IDEA.
- * User: user
- * Date: 03.07.13
- * Time: 19:29
- * To change this template use File | Settings | File Templates.
+
  */
 public class TestCommandSqrt extends TestCase {
-    public void setUp() throws Exception {
 
-    }
-
-    public void tearDown() throws Exception {
-
-    }
-
-    public void testExample1() throws Exception {
-        String s = "a"+"bc";
-        assertEquals("abc",s);
-
-    }
 
     public void testSqrt() throws Exception {
 
@@ -39,7 +23,8 @@ public class TestCommandSqrt extends TestCase {
         Command sqrtCmd = new SqrtCommand();
         sqrtCmd.execute(st,"",define);
 
-     //   System.out.println("test");
         assertEquals(st.peek(),Math.sqrt(a),1.e-9);
+        st.pop();
+        assertEquals(st.peek(),-Math.sqrt(a),1.e-9);
     }
 }
