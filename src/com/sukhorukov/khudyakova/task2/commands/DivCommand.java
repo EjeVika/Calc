@@ -1,6 +1,7 @@
 package com.sukhorukov.khudyakova.task2.commands;
 
 import com.sukhorukov.khudyakova.task2.Command;
+import com.sukhorukov.khudyakova.task2.annotation.EnumArg;
 
 import java.util.EmptyStackException;
 import java.util.Map;
@@ -11,7 +12,7 @@ import java.util.Stack;
  */
 public class DivCommand implements Command {
     @Override
-    public void execute(Stack<Double> st, String userInput, Map<String, Double> def) {
+    public void execute(String userInput) {
         if (st.size()>=2){
             Double a = st.pop();
             Double b = st.pop();
@@ -20,4 +21,6 @@ public class DivCommand implements Command {
             throw new EmptyStackException();
         }
     }
+    @In(typeArg = EnumArg.STACK)
+    private Stack<Double> st;
 }

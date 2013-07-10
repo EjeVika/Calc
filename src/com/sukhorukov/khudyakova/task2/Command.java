@@ -15,5 +15,5 @@ import java.util.Stack;
  * To change this template use File | Settings | File Templates.
  */
 public interface Command {
-    void execute(Stack<Double> st, String userInput, Map<String,Double> def);
+    void execute(String userInput);
 }
