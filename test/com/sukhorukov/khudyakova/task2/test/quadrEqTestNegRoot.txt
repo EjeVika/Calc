@@ -11,10 +11,10 @@ PUSH c
 *
 -
 SQRT
+POP
 PUSH b
 -
 PUSH 2
 PUSH a
 *
 /
-quit

@@ -1,7 +1,9 @@
 package com.sukhorukov.khudyakova.task2;
 
 
-import java.util.HashMap;
+
+import java.util.EmptyStackException;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -10,22 +12,31 @@ import java.util.Stack;
  */
 public class Calcul {
 
-    public void executeCalculations(Scanner scan,CommandFactory cmdFactory,Stack<Double> st,HashMap<String,Double> def){
-        // reading first input
+    public void executeCalculations(Scanner scan,CommandFactory cmdFactory,Stack<Double> st,Map<String,Double> def){
 
 
-        String userInput = scan.nextLine();
+
+       while (scan.hasNextLine()){
+            String userInput = scan.nextLine();
+            if (!userInput.equals("quit")){
+                String key=userInput.split(" ")[0];
+                try{
+                    cmdFactory.getCommand(key).execute(st,userInput,def);
+                }catch(EmptyStackException e){
+                    System.err.println("Stack doesn't contain enough elements");
+                }catch (NumberFormatException e){
+                        System.err.println(e.getMessage());
+                }catch (ArrayIndexOutOfBoundsException e){
+                    System.err.println(e.getMessage());
+                }
 
 
-        while (!(userInput.equals("quit"))){
+            }else{
+                System.out.println("exit");
+                System.exit(0);
+            }
 
-            String key=userInput.split(" ")[0];
-            cmdFactory.getCommand(key).execute(st,userInput,def);
-            userInput = scan.nextLine();
-        }
+       }
     }
 
-//    private Stack<Double> st;
-//    private HashMap<String,Double> def;
-//    private String userInput;
 }

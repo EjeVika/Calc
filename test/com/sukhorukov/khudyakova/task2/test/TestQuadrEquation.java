@@ -22,7 +22,7 @@ public class TestQuadrEquation extends TestCase {
         CommandFactory cmdFactory = new CommandFactory();
         Stack<Double> st = new Stack<>();
         HashMap<String,Double> def = new HashMap<>();
-        String fileName1 = "/com/sukhorukov/khudyakova/task2/quadrEqTestPosRoot.txt";
+        String fileName1 = "/com/sukhorukov/khudyakova/task2/test/quadrEqTestPosRoot.txt";
 
 
         try(InputStream inputStrm = TestQuadrEquation.class.getResourceAsStream(fileName1)){
@@ -47,7 +47,7 @@ public class TestQuadrEquation extends TestCase {
         CommandFactory cmdFactory = new CommandFactory();
         Stack<Double> st = new Stack<>();
         HashMap<String,Double> def = new HashMap<>();
-        String fileName2 = "/com/sukhorukov/khudyakova/task2/quadrEqTestNegRoot.txt";
+        String fileName2 = "/com/sukhorukov/khudyakova/task2/test/quadrEqTestNegRoot.txt";
         try(InputStream inputStrm = TestQuadrEquation.class.getResourceAsStream(fileName2)){
 
             Scanner scan = new Scanner(inputStrm);

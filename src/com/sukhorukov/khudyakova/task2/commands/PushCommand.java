@@ -2,7 +2,7 @@ package com.sukhorukov.khudyakova.task2.commands;
 
 import com.sukhorukov.khudyakova.task2.Command;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 /**
@@ -11,7 +11,7 @@ import java.util.Stack;
 public class PushCommand implements Command {
 
     @Override
-    public void execute(Stack<Double> st, String userInput, HashMap<String, Double> def) {
+    public void execute(Stack<Double> st, String userInput, Map<String, Double> def) {
 
         String[] mas = userInput.split(" ");
         try{
@@ -27,17 +27,16 @@ public class PushCommand implements Command {
                     }
                 }
             }
-           try{
+
                 if (flag){
                     st.push(pushValue);
                 }else {
                     st.push(new Double(mas[1]) );
                 }
-           }catch (NumberFormatException e){
-               System.out.println("The parameter \""+mas[1]+"\" is not defined" );
-           }
-        } catch (ArrayIndexOutOfBoundsException e){
-           System.out.println("Number of arguments of PUSH command is wrong");
+        }catch (NumberFormatException e ){
+               throw new NumberFormatException("The parameter \""+mas[1]+"\" is not defined" );
+        }catch (ArrayIndexOutOfBoundsException e){
+           throw new ArrayIndexOutOfBoundsException("Number of arguments of PUSH command is wrong");
         }
     }
 }
