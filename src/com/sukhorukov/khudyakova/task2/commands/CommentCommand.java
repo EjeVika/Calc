@@ -11,7 +11,7 @@ import java.util.Stack;
 public class CommentCommand implements Command {
 
     @Override
-    public void execute(Stack<Double> st, String userInput, Map<String, Double> def) {
+    public void execute(String userInput) {
         System.out.println("Comment line was ignored");
     }
 

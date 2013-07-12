@@ -1,6 +1,8 @@
 package com.sukhorukov.khudyakova.task2.commands;
 
 import com.sukhorukov.khudyakova.task2.Command;
+import com.sukhorukov.khudyakova.task2.annotation.EnumArg;
+import com.sukhorukov.khudyakova.task2.annotation.In;
 
 import java.util.Map;
 import java.util.Stack;
@@ -11,7 +13,7 @@ import java.util.Stack;
 public class PushCommand implements Command {
 
     @Override
-    public void execute(Stack<Double> st, String userInput, Map<String, Double> def) {
+    public void execute(String userInput) {
 
         String[] mas = userInput.split(" ");
         try{
@@ -39,4 +41,8 @@ public class PushCommand implements Command {
            throw new ArrayIndexOutOfBoundsException("Number of arguments of PUSH command is wrong");
         }
     }
+    @In(typeArg = EnumArg.STACK)
+    private Stack<Double> st;
+    @In (typeArg = EnumArg.CONTEXT)
+    private Map<String, Double> def;
 }

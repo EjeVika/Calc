@@ -19,9 +19,10 @@ public class TestQuadrEquation extends TestCase {
 
      public void testQEqPosRoot() throws Exception {
 
-        CommandFactory cmdFactory = new CommandFactory();
+
         Stack<Double> st = new Stack<>();
         HashMap<String,Double> def = new HashMap<>();
+        CommandFactory cmdFactory = new CommandFactory(st,def);
         String fileName1 = "/com/sukhorukov/khudyakova/task2/test/quadrEqTestPosRoot.txt";
 
 
@@ -44,9 +45,10 @@ public class TestQuadrEquation extends TestCase {
     }
 
     public void testQEqNegRoot() throws Exception {
-        CommandFactory cmdFactory = new CommandFactory();
+
         Stack<Double> st = new Stack<>();
         HashMap<String,Double> def = new HashMap<>();
+        CommandFactory cmdFactory = new CommandFactory(st,def);
         String fileName2 = "/com/sukhorukov/khudyakova/task2/test/quadrEqTestNegRoot.txt";
         try(InputStream inputStrm = TestQuadrEquation.class.getResourceAsStream(fileName2)){
 

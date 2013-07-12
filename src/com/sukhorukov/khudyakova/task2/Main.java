@@ -25,10 +25,11 @@ public class Main {
             }
 
             Scanner scan = new Scanner(inputStrm);
-            CommandFactory cmdFactory = new CommandFactory();
+
             Stack<Double> st = new Stack<>();
             Map<String,Double> def = new HashMap<>();
-
+            CommandFactory cmdFactory = new CommandFactory(st,def);
+            System.out.println("im in main");
             Calcul calculator = new Calcul();
             calculator.executeCalculations(scan,cmdFactory,st,def);
         } finally{

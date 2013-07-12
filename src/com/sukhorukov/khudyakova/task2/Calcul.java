@@ -21,7 +21,7 @@ public class Calcul {
             if (!userInput.equals("quit")){
                 String key=userInput.split(" ")[0];
                 try{
-                    cmdFactory.getCommand(key).execute(st,userInput,def);
+                    cmdFactory.getCommand(key).execute(userInput);
                 }catch(EmptyStackException e){
                     System.err.println("Stack doesn't contain enough elements");
                 }catch (NumberFormatException e){
