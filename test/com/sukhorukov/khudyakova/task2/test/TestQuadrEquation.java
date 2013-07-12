@@ -30,8 +30,8 @@ public class TestQuadrEquation extends TestCase {
 
             Scanner scan = new Scanner(inputStrm);
 
-            Calcul calculator = new Calcul();
-            calculator.executeCalculations(scan,cmdFactory,st,def);
+            Calcul calculator = new Calcul(st,def);
+            calculator.executeCalculations(scan,cmdFactory);
 
             Double a = def.get("a");
             Double b = def.get("b");
@@ -54,8 +54,8 @@ public class TestQuadrEquation extends TestCase {
 
             Scanner scan = new Scanner(inputStrm);
 
-            Calcul calculator = new Calcul();
-            calculator.executeCalculations(scan,cmdFactory,st,def);
+            Calcul calculator = new Calcul(st,def);
+            calculator.executeCalculations(scan,cmdFactory);
 
             Double a = def.get("a");
             Double b = def.get("b");

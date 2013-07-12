@@ -48,16 +48,13 @@ public class CommandFactory {
                     }
                     Class cls=Class.forName(packageName.toString()+"."+className);
              //   Class cls=Class.forName("com.sukhorukov.khudyakova.task2.commands."+className);
-               //     Object cmd=cls.newInstance();
-               //     Command cmd1=(Command)cmd;
-                    InvocationHandler handler = new MyInvocationHandler();
-
-                    Command cmd = (Command) Proxy.newProxyInstance(cls.getClassLoader(),
-                            new Class[] {Command.class},handler);
-
-
+                    Object cmd=cls.newInstance();
                     Command cmd1=(Command)cmd;
-                    System.out.println(cmd1.getClass().getDeclaredField("cmd").getName());
+
+
+
+
+                //    System.out.println(cmd1.getClass().getDeclaredField("cmd").getName());
                 //    System.out.println(cls.toString());
                 //    System.out.println(cls.getDeclaredFields()[0].getName());
                     for (Field f:cls.getDeclaredFields()){
@@ -85,10 +82,12 @@ public class CommandFactory {
                         }
                     }
                 }
-    //                InvocationHandler handler = new MyInvocationHandler();
-    //                Command proxy = (Command) Proxy.newProxyInstance(Command.class.getClassLoader(),
-    //                                                                    new Class[] {Command.class},handler);
-                    commandTable.put(key.toString(),cmd1);
+
+                    InvocationHandler handler = new MyInvocationHandler(cmd1);
+
+                    Command cmd2 = (Command) Proxy.newProxyInstance(cls.getClassLoader(),
+                            new Class[] {Command.class},handler);
+                    commandTable.put(key.toString(),cmd2);
  //                 for (String s:commandTable.keySet()){
    //                   System.out.println(s+" "+commandTable.get(s));
      //           }

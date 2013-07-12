@@ -12,11 +12,13 @@ import java.util.Stack;
  */
 public class Calcul {
 
-    public void executeCalculations(Scanner scan,CommandFactory cmdFactory,Stack<Double> st,Map<String,Double> def){
+    public Calcul(Stack<Double> st,Map<String,Double> def){
+            this.stack = st;
+            this.define = def;
+    }
+    public void executeCalculations(Scanner scan,CommandFactory cmdFactory){
 
-
-
-       while (scan.hasNextLine()){
+        while (scan.hasNextLine()){
             String userInput = scan.nextLine();
             if (!userInput.equals("quit")){
                 String key=userInput.split(" ")[0];
@@ -29,14 +31,16 @@ public class Calcul {
                 }catch (ArrayIndexOutOfBoundsException e){
                     System.err.println(e.getMessage());
                 }
-
-
             }else{
                 System.out.println("exit");
                 System.exit(0);
             }
-
        }
     }
+    public Stack<Double> getStack(){
+          return stack;
+    }
 
+    private Stack<Double> stack;
+    private Map<String,Double> define;
 }
