@@ -10,6 +10,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -20,7 +22,7 @@ import java.util.Stack;
  */
 public class CommandFactory {
 
-    public CommandFactory(Stack<Double> st,Map<String,Double> def) throws IOException, ClassNotFoundException, IllegalAccessException, InstantiationException {
+    public CommandFactory(Stack<Double> st,Map<String,Double> def) throws IOException, ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchFieldException {
 
         try(InputStream in = CommandFactory.class.getResourceAsStream("commands.properties")){
             Properties p = new Properties();
@@ -32,22 +34,30 @@ public class CommandFactory {
 
                     String className= p.getProperty(key.toString());
                 //    System.out.println(className);
-               StringBuilder packageName = new StringBuilder("");
-                Package[] packs = Package.getPackages();
-                for (Package pck :packs){
-                    String fullClassName = pck.getName()+"."+className;
-                    try{
-                       Class.forName(fullClassName);
-                    }catch(ClassNotFoundException e){
-                        continue;
+                    StringBuilder packageName = new StringBuilder("");
+                    Package[] packs = Package.getPackages();
+                    for (Package pck :packs){
+                        String fullClassName = pck.getName()+"."+className;
+                        try{
+                            Class.forName(fullClassName);
+                        }catch(ClassNotFoundException e){
+                            continue;
+                        }
+                        packageName = packageName.append(pck.getName().toCharArray());
+                        break;
                     }
-                    packageName = packageName.append(pck.getName().toCharArray());
-                    break;
-                }
-                Class cls=Class.forName(packageName.toString()+"."+className);
+                    Class cls=Class.forName(packageName.toString()+"."+className);
              //   Class cls=Class.forName("com.sukhorukov.khudyakova.task2.commands."+className);
-                    Object cmd=cls.newInstance();
+               //     Object cmd=cls.newInstance();
+               //     Command cmd1=(Command)cmd;
+                    InvocationHandler handler = new MyInvocationHandler();
+
+                    Command cmd = (Command) Proxy.newProxyInstance(cls.getClassLoader(),
+                            new Class[] {Command.class},handler);
+
+
                     Command cmd1=(Command)cmd;
+                    System.out.println(cmd1.getClass().getDeclaredField("cmd").getName());
                 //    System.out.println(cls.toString());
                 //    System.out.println(cls.getDeclaredFields()[0].getName());
                     for (Field f:cls.getDeclaredFields()){
@@ -73,15 +83,14 @@ public class CommandFactory {
                                 break;
                             }
                         }
-                 //       anno.typeArg()
                     }
-
                 }
-               // Object cmd=cls.newInstance();
-               // Command cmd1=(Command)cmd;
-                commandTable.put(key.toString(),cmd1);
- //               for (String s:commandTable.keySet()){
-   //                 System.out.println(s+" "+commandTable.get(s));
+    //                InvocationHandler handler = new MyInvocationHandler();
+    //                Command proxy = (Command) Proxy.newProxyInstance(Command.class.getClassLoader(),
+    //                                                                    new Class[] {Command.class},handler);
+                    commandTable.put(key.toString(),cmd1);
+ //                 for (String s:commandTable.keySet()){
+   //                   System.out.println(s+" "+commandTable.get(s));
      //           }
 
 
