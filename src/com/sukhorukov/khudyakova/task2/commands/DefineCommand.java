@@ -15,7 +15,7 @@ public class DefineCommand implements Command {
     public void execute( String userInput) {
         String[] mas = userInput.split(" ");
         Double d=new Double(mas[2]);
-        def.put(mas[1],d);
+        def.put(mas[1], d);
     }
     @In(typeArg = EnumArg.CONTEXT)
     private Map<String, Double> def;

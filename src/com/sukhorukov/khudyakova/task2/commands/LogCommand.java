@@ -8,15 +8,19 @@ import java.util.EmptyStackException;
 import java.util.Stack;
 
 /**
-
+ * Created with IntelliJ IDEA.
+ * User: ТСД
+ * Date: 15.07.13
+ * Time: 23:14
+ * To change this template use File | Settings | File Templates.
  */
-public class DivCommand implements Command {
+public class LogCommand implements Command {
+
     @Override
-    public void execute(String userInput) throws EmptyStackException{
-        if (st.size()>=2){
+    public void execute(String userInput) {
+        if (st.size()>=1){
             Double a = st.pop();
-            Double b = st.pop();
-            st.push(b/a);
+            st.push(Math.log(a));
         }else{
             throw new EmptyStackException();
         }

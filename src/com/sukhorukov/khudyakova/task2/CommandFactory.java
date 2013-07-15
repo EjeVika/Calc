@@ -4,6 +4,7 @@ package com.sukhorukov.khudyakova.task2;
 
 import com.sukhorukov.khudyakova.task2.annotation.In;
 import com.sukhorukov.khudyakova.task2.commands.PrintCommand;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,68 +13,57 @@ import java.io.Reader;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Stack;
+import java.util.*;
 
 /**
 
  */
 public class CommandFactory {
-
+    private static final Logger log = Logger.getLogger(CommandFactory.class);
     public CommandFactory(Stack<Double> st,Map<String,Double> def) throws IOException, ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchFieldException {
 
         try(InputStream in = CommandFactory.class.getResourceAsStream("commands.properties")){
             Properties p = new Properties();
             Reader reader1 = new InputStreamReader(in);
-                p.load(reader1);
-                Command anyCmd = new PrintCommand(); // load "commands" package
-                commandTable = new HashMap<>();
-                for (Object key:p.keySet() ) {
+            p.load(reader1);
+            Command anyCmd = new PrintCommand(); /* load any command from "commands" package
+                                                    in order to let ClassLoader know about it */
+            commandTable = new HashMap<>();
+            for (Object key:p.keySet() ) {
 
-                    String className= p.getProperty(key.toString());
-                //    System.out.println(className);
-                    StringBuilder packageName = new StringBuilder("");
-                    Package[] packs = Package.getPackages();
-                    for (Package pck :packs){
-                        String fullClassName = pck.getName()+"."+className;
-                        try{
-                            Class.forName(fullClassName);
-                        }catch(ClassNotFoundException e){
-                            continue;
-                        }
-                        packageName = packageName.append(pck.getName().toCharArray());
-                        break;
+                String className= p.getProperty(key.toString());
+                log.debug(className);
+                StringBuilder packageName = new StringBuilder("");
+                Package[] packs = Package.getPackages();
+                for (Package pck :packs){
+                    String fullClassName = pck.getName()+"."+className;
+                    try{
+                        Class.forName(fullClassName);
+                    }catch(ClassNotFoundException e){
+                        continue;
                     }
-                    Class cls=Class.forName(packageName.toString()+"."+className);
-             //   Class cls=Class.forName("com.sukhorukov.khudyakova.task2.commands."+className);
-                    Object cmd=cls.newInstance();
-                    Command cmd1=(Command)cmd;
+                    packageName = packageName.append(pck.getName().toCharArray());
+                    break;
+                }
+                Class cls=Class.forName(packageName.toString()+"."+className);
+                Object cmd=cls.newInstance();
+                Command cmd1=(Command)cmd;
 
-
-
-
-                //    System.out.println(cmd1.getClass().getDeclaredField("cmd").getName());
-                //    System.out.println(cls.toString());
-                //    System.out.println(cls.getDeclaredFields()[0].getName());
-                    for (Field f:cls.getDeclaredFields()){
-                 //   System.out.println(f.getName());
-                    //    System.out.println(f.getDeclaredAnnotations()[0].annotationType());
-                    //    System.out.println(f.getAnnotation(In.class));
+                for (Field f:cls.getDeclaredFields()){
+                    log.debug(f.getName());
                     In anno = f.getAnnotation(In.class);
-                //    System.out.println(anno);
+                    log.debug(anno);
                     if (anno!=null){
                         switch (anno.typeArg()){
                             case STACK: {
-                              //  System.out.println("STACK");
+                                log.debug("STACK");
                                 f.setAccessible(true);
                                 f.set(cmd1,st);
                                 f.setAccessible(false);
                                 break;
                             }
                             case CONTEXT:{
-                            //    System.out.println("CONTEXT");
+                                log.debug("CONTEXT");
                                 f.setAccessible(true);
                                 f.set(cmd1,def);
                                 f.setAccessible(false);
@@ -83,30 +73,22 @@ public class CommandFactory {
                     }
                 }
 
-                    InvocationHandler handler = new MyInvocationHandler(cmd1);
-
-                    Command cmd2 = (Command) Proxy.newProxyInstance(cls.getClassLoader(),
-                            new Class[] {Command.class},handler);
-                    commandTable.put(key.toString(),cmd2);
- //                 for (String s:commandTable.keySet()){
-   //                   System.out.println(s+" "+commandTable.get(s));
-     //           }
-
+                InvocationHandler handler = new MyInvocationHandler(cmd1,st,def);
+                Command cmd2 = (Command) Proxy.newProxyInstance(cls.getClassLoader(),
+                                new Class[] {Command.class},handler);
+                commandTable.put(key.toString(),cmd2);
 
             }
         }
-
     }
 
     public Command getCommand(String key){
-
         return commandTable.get(key);
     }
 
+    public Set<String> getKeySet() {
+        return commandTable.keySet();
+    }
+
     private HashMap<String,Command> commandTable;
-
-
-
-
-
 }

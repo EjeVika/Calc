@@ -4,6 +4,7 @@ package com.sukhorukov.khudyakova.task2;
   default file template
  */
 
+import java.util.EmptyStackException;
 import java.util.Map;
 import java.util.Stack;
 

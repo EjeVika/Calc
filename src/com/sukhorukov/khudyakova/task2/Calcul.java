@@ -2,45 +2,40 @@ package com.sukhorukov.khudyakova.task2;
 
 
 
-import java.util.EmptyStackException;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Stack;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
 
 /**
 
  */
 public class Calcul {
 
-    public Calcul(Stack<Double> st,Map<String,Double> def){
-            this.stack = st;
-            this.define = def;
-    }
-    public void executeCalculations(Scanner scan,CommandFactory cmdFactory){
+
+    public void executeCalculations(Scanner scan,CommandFactory cmdFactory, Stack<Double> st, Map<String,Double> def){
+
+        Set<String> cmdDictionary= cmdFactory.getKeySet();
 
         while (scan.hasNextLine()){
             String userInput = scan.nextLine();
             if (!userInput.equals("quit")){
-                String key=userInput.split(" ")[0];
-                try{
-                    cmdFactory.getCommand(key).execute(userInput);
-                }catch(EmptyStackException e){
-                    System.err.println("Stack doesn't contain enough elements");
-                }catch (NumberFormatException e){
+                String key=userInput.split(" ")[0].toUpperCase();
+                if (cmdDictionary.contains(key)){
+                    try{
+                        cmdFactory.getCommand(key).execute(userInput);
+                    }catch(EmptyStackException e){
+                        System.err.println("Stack doesn't contain enough elements");
+                    }catch (NumberFormatException|ArrayIndexOutOfBoundsException e){
                         System.err.println(e.getMessage());
-                }catch (ArrayIndexOutOfBoundsException e){
-                    System.err.println(e.getMessage());
+                    }
+                }else{
+                    System.err.println("Command is wrong. Try again.");
                 }
+
             }else{
                 System.out.println("exit");
                 System.exit(0);
             }
        }
     }
-    public Stack<Double> getStack(){
-          return stack;
-    }
 
-    private Stack<Double> stack;
-    private Map<String,Double> define;
 }

@@ -12,7 +12,7 @@ public class CommentCommand implements Command {
 
     @Override
     public void execute(String userInput) {
-        System.out.println("Comment line was ignored");
+
     }
 
 

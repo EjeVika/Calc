@@ -30,8 +30,8 @@ public class Main {
             Map<String,Double> def = new HashMap<>();
             CommandFactory cmdFactory = new CommandFactory(st,def);
         //    System.out.println("im in main");
-            Calcul calculator = new Calcul(st,def);
-            calculator.executeCalculations(scan,cmdFactory);
+            Calcul calculator = new Calcul();
+            calculator.executeCalculations(scan,cmdFactory,st,def);
         } finally{
             if(inputStrm!=null) inputStrm.close();
         }
