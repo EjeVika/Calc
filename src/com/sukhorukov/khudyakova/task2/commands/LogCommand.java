@@ -8,11 +8,7 @@ import java.util.EmptyStackException;
 import java.util.Stack;
 
 /**
- * Created with IntelliJ IDEA.
- * User: ТСД
- * Date: 15.07.13
- * Time: 23:14
- * To change this template use File | Settings | File Templates.
+
  */
 public class LogCommand implements Command {
 

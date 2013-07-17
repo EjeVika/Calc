@@ -11,7 +11,7 @@ import java.util.*;
 public class Calcul {
 
 
-    public void executeCalculations(Scanner scan,CommandFactory cmdFactory, Stack<Double> st, Map<String,Double> def){
+    public void executeCalculations(Scanner scan,CommandFactory cmdFactory){
 
         Set<String> cmdDictionary= cmdFactory.getKeySet();
 

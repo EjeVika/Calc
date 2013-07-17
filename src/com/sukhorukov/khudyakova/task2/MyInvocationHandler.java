@@ -11,18 +11,14 @@ import java.util.Map;
 import java.util.Stack;
 
 /**
- * Created with IntelliJ IDEA.
- * User: ТСД
- * Date: 12.07.13
- * Time: 13:50
- * To change this template use File | Settings | File Templates.
+
  */
 
 public class MyInvocationHandler implements InvocationHandler {
     private static final Logger log = Logger.getLogger(MyInvocationHandler.class);
-    private Command cmd;
-    private Stack<Double> st;
-    private Map<String,Double> def;
+    private final Command cmd;
+    private final Stack<Double> st;
+    private final Map<String,Double> def;
     public MyInvocationHandler(Command cmd, Stack<Double> st, Map<String ,Double> def){
         this.cmd = cmd;
         this.st = st;
@@ -36,7 +32,7 @@ public class MyInvocationHandler implements InvocationHandler {
         log.info("Context: "+def);
         StringBuilder str = new StringBuilder("userInput");
         for (Field f:cmd.getClass().getDeclaredFields()){
-             str = str.append(", "+f.getName());
+             str = str.append(", ").append(f.getName());
         }
         log.info("Arguments: "+str.toString());
         try{

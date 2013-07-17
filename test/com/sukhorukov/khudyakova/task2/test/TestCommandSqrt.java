@@ -17,7 +17,7 @@ public class TestCommandSqrt extends TestCase {
     public void testSqrt() throws Exception {
 
 
-        HashMap<String, Double> define = new HashMap<>();
+
         Stack<Double> st = new Stack<>();
 
         Double a = 4.0;

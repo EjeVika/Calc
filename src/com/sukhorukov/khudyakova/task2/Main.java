@@ -31,7 +31,7 @@ public class Main {
             CommandFactory cmdFactory = new CommandFactory(st,def);
         //    System.out.println("im in main");
             Calcul calculator = new Calcul();
-            calculator.executeCalculations(scan,cmdFactory,st,def);
+            calculator.executeCalculations(scan,cmdFactory);
         } finally{
             if(inputStrm!=null) inputStrm.close();
         }

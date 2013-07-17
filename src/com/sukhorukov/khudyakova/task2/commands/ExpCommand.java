@@ -8,15 +8,16 @@ import java.util.EmptyStackException;
 import java.util.Stack;
 
 /**
- * Created with IntelliJ IDEA.
- * User: ТСД
- * Date: 15.07.13
- * Time: 23:14
- * To change this template use File | Settings | File Templates.
+
  */
-public class ExpCommand implements Command {
+public class ExpCommand extends Command {
+    public ExpCommand(int minStackLength, Stack<Double> st) {
+        super(minStackLength);
+
+    }
+
     @Override
-    public void execute(String userInput) {
+    public void executeImpl(String userInput) {
         if (st.size()>=1){
             Double a = st.pop();
             Double b = Math.exp(a);

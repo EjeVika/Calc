@@ -20,7 +20,7 @@ import java.util.*;
  */
 public class CommandFactory {
     private static final Logger log = Logger.getLogger(CommandFactory.class);
-    public CommandFactory(Stack<Double> st,Map<String,Double> def) throws IOException, ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchFieldException {
+    public CommandFactory(Stack<Double> st,Map<String,Double> def) throws IOException, ClassNotFoundException, IllegalAccessException, InstantiationException {
 
         try(InputStream in = CommandFactory.class.getResourceAsStream("commands.properties")){
             Properties p = new Properties();
