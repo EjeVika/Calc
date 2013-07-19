@@ -2,7 +2,6 @@ package com.sukhorukov.khudyakova.task2;
 
 
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 /**
@@ -11,7 +10,7 @@ import java.util.*;
 public class Calcul {
 
 
-    public void executeCalculations(Scanner scan,CommandFactory cmdFactory){
+    public void executeCalculations(Scanner scan,CommandFactory cmdFactory) throws IllegalAccessException {
 
         Set<String> cmdDictionary= cmdFactory.getKeySet();
 
@@ -25,17 +24,15 @@ public class Calcul {
                     }catch(EmptyStackException e){
                         System.err.println("Stack doesn't contain enough elements");
                     }catch (NumberFormatException|ArrayIndexOutOfBoundsException e){
-                        System.err.println(e.getMessage());
+                        e.printStackTrace();
                     }
                 }else{
                     System.err.println("Command is wrong. Try again.");
                 }
-
             }else{
                 System.out.println("exit");
                 System.exit(0);
             }
        }
     }
-
 }

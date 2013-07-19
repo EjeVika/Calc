@@ -3,6 +3,7 @@ package com.sukhorukov.khudyakova.task2;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -13,7 +14,7 @@ import java.util.Stack;
 
  */
 public class Main {
-    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, NoSuchFieldException {
+    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, NoSuchFieldException, InvocationTargetException {
         InputStream inputStrm =null;
         try{
 
@@ -29,7 +30,6 @@ public class Main {
             Stack<Double> st = new Stack<>();
             Map<String,Double> def = new HashMap<>();
             CommandFactory cmdFactory = new CommandFactory(st,def);
-        //    System.out.println("im in main");
             Calcul calculator = new Calcul();
             calculator.executeCalculations(scan,cmdFactory);
         } finally{

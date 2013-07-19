@@ -1,17 +1,18 @@
 package com.sukhorukov.khudyakova.task2.commands;
 
-import com.sukhorukov.khudyakova.task2.Command;
-
-import java.util.Map;
-import java.util.Stack;
+import com.sukhorukov.khudyakova.task2.AbstractCommand;
 
 /**
 
  */
-public class CommentCommand implements Command {
+public class CommentCommand extends AbstractCommand {
+
+    public CommentCommand() {
+        super(0);
+    }
 
     @Override
-    public void execute(String userInput) {
+    public void executeImpl(String userInput) {
 
     }
 

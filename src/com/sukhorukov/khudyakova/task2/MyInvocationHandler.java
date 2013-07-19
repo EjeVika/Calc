@@ -14,7 +14,7 @@ import java.util.Stack;
 
  */
 
-public class MyInvocationHandler implements InvocationHandler {
+class MyInvocationHandler implements InvocationHandler {
     private static final Logger log = Logger.getLogger(MyInvocationHandler.class);
     private final Command cmd;
     private final Stack<Double> st;

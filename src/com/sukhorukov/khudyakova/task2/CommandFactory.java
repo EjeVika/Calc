@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Proxy;
 import java.util.*;
 
@@ -20,14 +21,15 @@ import java.util.*;
  */
 public class CommandFactory {
     private static final Logger log = Logger.getLogger(CommandFactory.class);
-    public CommandFactory(Stack<Double> st,Map<String,Double> def) throws IOException, ClassNotFoundException, IllegalAccessException, InstantiationException {
+    public CommandFactory(Stack<Double> st,Map<String,Double> def) throws IOException,
+            ClassNotFoundException, IllegalAccessException, InstantiationException {
 
         try(InputStream in = CommandFactory.class.getResourceAsStream("commands.properties")){
             Properties p = new Properties();
-            Reader reader1 = new InputStreamReader(in);
-            p.load(reader1);
-            Command anyCmd = new PrintCommand(); /* load any command from "commands" package
-                                                    in order to let ClassLoader know about it */
+            Reader reader = new InputStreamReader(in);
+            p.load(reader);
+            Command anyCmd = new PrintCommand(); /* load any command from "commands" package */
+
             commandTable = new HashMap<>();
             for (Object key:p.keySet() ) {
 
@@ -46,7 +48,9 @@ public class CommandFactory {
                     break;
                 }
                 Class cls=Class.forName(packageName.toString()+"."+className);
-                Object cmd=cls.newInstance();
+//                Object cmd=cls.getDeclaredConstructors()[0].newInstance(
+//                        new Integer(pStackLength.getProperty(key.toString())));
+                Object cmd = cls.newInstance();
                 Command cmd1=(Command)cmd;
 
                 for (Field f:cls.getDeclaredFields()){
